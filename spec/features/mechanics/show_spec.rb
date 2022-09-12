@@ -42,5 +42,28 @@ RSpec.describe 'Mechanic Show Page' do
       expect(hurler.name).to appear_before(scrambler.name)
     end
   end
+
+  describe 'Adding a new ride to a mechanic ' do
+    before(:each) do
+      nate.rides << scrambler
+      visit "/mechanics/#{nate.id}"
+    end
+
+    it 'has a form to add a ride to the mechanic' do
+      expect(page).to have_content(scrambler.name)
+      expect(page).to_not have_content(hurler.name)
+      expect(page).to have_button("Submit")
+    end
+
+    describe 'when I fill in that field with an existing ride ID and hit submit' do
+      it 'takes me back to that mechanic show page, and I see the name of the newly added ride' do
+        fill_in "Ride ID", with: hurler.id
+        click_on "Submit"
+
+        expect(page).to have_content(hurler.name)
+        expect(page).to_not have_content(ferris.name)
+      end
+    end
+  end
 end
 

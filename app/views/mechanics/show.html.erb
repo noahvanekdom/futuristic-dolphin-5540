@@ -1,11 +1,19 @@
 <h1> <%= "Mechanic #{@mechanic.name}'s page" %> </h1>
 
-<h3> <%= "Years of Experience: #{@mechanic.years_experience} " %>
+<h3> <%= "Years of Experience: #{@mechanic.years_experience} " %> </h3>
 <h3> Rides </h3>
   <% @mechanic.rides.order(thrill_rating: :desc).each do |ride| %>
     <% if ride.open %>
       <ul>
         <li><%= ride.name %></li>
-      </ul
+      </ul>
     <% end %>
   <% end %>
+
+<h4> Add a Ride </h4>
+
+<%= form_with url: "/mechanics/#{@mechanic.id}", method: :patch do |f| %>
+  <%= f.label :ride_id, "Ride ID" %>
+  <%= f.text_field :ride_id %>
+  <%= f.submit "Submit" %>
+<% end %>
