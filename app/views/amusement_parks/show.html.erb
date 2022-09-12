@@ -1,2 +1,10 @@
-<h1> <% "Welcome to #{@amusement_park.name}" %> </h1>
+<h1> <%= "Welcome to #{@amusement_park.name}" %> </h1>
 
+<h5> <%= "Admission to park: $#{@amusement_park.admission_cost}" %>
+
+<h3> Rides </h3>
+  <% @amusement_park.rides_alph.each do |ride| %>
+    <%= ride.name %>
+  <% end %>
+
+<h5> <%= "How thrilling is this park (1-10): #{@amusement_park.avg_thrill_rating}" %>
