@@ -21,9 +21,11 @@ RSpec.describe 'Mechanic Index Page' do
     end
 
     it 'also displays the average years of experience across all mechanics' do
-      #COME BACK AND ADD WITHIN HERE (AS WELL AS TO_NOT)
-      expect(page).to have_content(10)
-      expect(page).to have_content("Experience")
+      within('div#avgexp') do
+        expect(page).to have_content(10)
+        expect(page).to have_content("Experience")
+        expect(page).to_not have_content("#{nate.name}")
+      end
     end
   end
 end
