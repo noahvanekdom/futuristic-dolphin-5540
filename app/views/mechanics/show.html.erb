@@ -1,0 +1,11 @@
+<h1> <%= "Mechanic #{@mechanic.name}'s page" %> </h1>
+
+<h3> <%= "Years of Experience: #{@mechanic.years_experience} " %>
+<h3> Rides </h3>
+  <% @mechanic.rides.order(thrill_rating: :desc).each do |ride| %>
+    <% if ride.open %>
+      <ul>
+        <li><%= ride.name %></li>
+      </ul
+    <% end %>
+  <% end %>

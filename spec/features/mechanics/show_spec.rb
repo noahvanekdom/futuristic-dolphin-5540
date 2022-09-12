@@ -19,17 +19,27 @@ RSpec.describe 'Mechanic Show Page' do
 
   describe 'As a user, when I visit the mechanics show page' do
     before(:each) do
-      visit '/mechanics/1'
+      nate.rides << scrambler
+      nate.rides << hurler
+      nate.rides << ferris
+      visit "/mechanics/#{nate.id}"
     end
 
-    it 'I see their name, years of experience, and the names of the rides they are working on' do
+    it 'I see their name, years of experience' do
+      expect(page).to have_content("Mechanic")
+      expect(page).to have_content(nate.name)
+      expect(page).to have_content(nate.years_experience)
+
+      expect(page).to_not have_content(malia.name)
     end
 
-    it 'I only see rides that are open' do
-
+    it 'I see each open ride that mechanic works on, and not the closed ones' do
+      expect(page).to have_content(scrambler.name)
+      expect(page).to_not have_content(ferris.name)
     end
 
     it 'and the rides are listed by thrill rating in descending order' do
+      expect(hurler.name).to appear_before(scrambler.name)
     end
   end
 end
